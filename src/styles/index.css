@@ -1,0 +1,16 @@
+body, .app {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+}
+
+.to-do-app {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    width: 500px;
+}
