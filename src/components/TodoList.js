@@ -5,7 +5,10 @@ import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
 import EditIcon from 'material-ui-icons/Edit';
 
-const TodoList = ({todos, toggleTodo, updateTodo, deleteTodo}) => {
+const TodoList = ({filter, todos, toggleTodo, updateTodo, deleteTodo}) => {
+    const filterTodos = filter === 'All' ?
+        todos :
+        todos.filter(todo => todo.status === filter);
     return (
         <Table>
             <TableHead>
@@ -18,7 +21,7 @@ const TodoList = ({todos, toggleTodo, updateTodo, deleteTodo}) => {
             </TableHead>
             <TableBody>
                 {
-                    todos.map(todo => {
+                    filterTodos.map(todo => {
                         return (
                             <TableRow key={todo.id}>
                                 <TableCell>{todo.name}</TableCell>
@@ -41,7 +44,7 @@ const TodoList = ({todos, toggleTodo, updateTodo, deleteTodo}) => {
                                 <TableCell>
                                     <IconButton
                                         aria-label="Delete"
-                                        color="accent"
+                                        color="gray"
                                         onClick={() => {deleteTodo(todo.id)}}>
                                         <DeleteIcon />
                                     </IconButton>

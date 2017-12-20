@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TodoInput from './TodoInput';
 import TodoList from './TodoList';
+import TodoStatus from './TodoStatus';
 import '../styles/index.css';
 
 class TodoApp extends Component {
@@ -13,7 +14,8 @@ class TodoApp extends Component {
                 this.createTodo('Dating'),
                 this.createTodo('Gaming')
             ],
-            editingTodo: {}
+            editingTodo: {},
+            filter: 'All'
         };
 
         this.addTodo = this.addTodo.bind(this);
@@ -21,13 +23,20 @@ class TodoApp extends Component {
         this.toggleTodo = this.toggleTodo.bind(this);
         this.updateTodo = this.updateTodo.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
+        this.filterTodo = this.filterTodo.bind(this);
     }
 
     render () {
         return (
             <div className="to-do-app">
                 <TodoInput upsertTodo={this.upsertTodo} editingTodo={this.state.editingTodo}/>
-                <TodoList todos={this.state.todos} toggleTodo={this.toggleTodo} deleteTodo={this.deleteTodo} updateTodo={this.updateTodo}/>
+                <TodoStatus todos={this.state.todos} filterTodo={this.filterTodo}/>
+                <TodoList filter={this.state.filter}
+                          todos={this.state.todos}
+                          toggleTodo={this.toggleTodo}
+                          deleteTodo={this.deleteTodo}
+                          updateTodo={this.updateTodo}/>
+
             </div>
         );
     }
@@ -90,6 +99,12 @@ class TodoApp extends Component {
         this.setState({
             todos
         });
+    }
+
+    filterTodo (filter) {
+        this.setState({
+            filter
+        })
     }
 }
 
