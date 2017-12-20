@@ -1,19 +1,19 @@
 import React from 'react';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import Switch from 'material-ui/Switch';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
+import EditIcon from 'material-ui-icons/Edit';
 
-const TodoList = ({todos, updateTodo}) => {
+const TodoList = ({filter, todos, toggleTodo, updateTodo, deleteTodo}) => {
+    const filterTodos = filter === 'All' ?
+        todos :
+        todos.filter(todo => todo.status === filter);
     return (
         <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Status</TableCell>
-                </TableRow>
-            </TableHead>
             <TableBody>
                 {
-                    todos.map(todo => {
+                    filterTodos.map(todo => {
                         return (
                             <TableRow key={todo.id}>
                                 <TableCell>{todo.name}</TableCell>
@@ -21,9 +21,25 @@ const TodoList = ({todos, updateTodo}) => {
                                     <Switch
                                         checked={todo.status !== 'Active'}
                                         onChange={(event, checked) => {
-                                            updateTodo(todo.id, checked);
+                                            toggleTodo(todo.id, checked);
                                         }}
                                     />
+                                </TableCell>
+                                <TableCell>
+                                    <IconButton
+                                        aria-label="Edit"
+                                        color="primary"
+                                        onClick={() => {updateTodo(todo)}}>
+                                        <EditIcon />
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell>
+                                    <IconButton
+                                        aria-label="Delete"
+                                        color="gray"
+                                        onClick={() => {deleteTodo(todo.id)}}>
+                                        <DeleteIcon />
+                                    </IconButton>
                                 </TableCell>
                             </TableRow>
                         );

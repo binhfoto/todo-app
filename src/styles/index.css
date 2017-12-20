@@ -14,3 +14,9 @@ body, .app {
 
     width: 500px;
 }
+
+.to-do-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
