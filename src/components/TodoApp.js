@@ -29,8 +29,11 @@ class TodoApp extends Component {
     render () {
         return (
             <div className="to-do-app">
-                <TodoInput upsertTodo={this.upsertTodo} editingTodo={this.state.editingTodo}/>
-                <TodoStatus todos={this.state.todos} filterTodo={this.filterTodo}/>
+                <TodoInput upsertTodo={this.upsertTodo}
+                           editingTodo={this.state.editingTodo}/>
+                <TodoStatus filter={this.state.filter}
+                            todos={this.state.todos}
+                            filterTodo={this.filterTodo}/>
                 <TodoList filter={this.state.filter}
                           todos={this.state.todos}
                           toggleTodo={this.toggleTodo}

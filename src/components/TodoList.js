@@ -1,5 +1,5 @@
 import React from 'react';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import Switch from 'material-ui/Switch';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
@@ -11,14 +11,6 @@ const TodoList = ({filter, todos, toggleTodo, updateTodo, deleteTodo}) => {
         todos.filter(todo => todo.status === filter);
     return (
         <Table>
-            <TableHead>
-                <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                </TableRow>
-            </TableHead>
             <TableBody>
                 {
                     filterTodos.map(todo => {

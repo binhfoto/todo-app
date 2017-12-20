@@ -5,20 +5,20 @@ import AllIcon from 'material-ui-icons/Reorder';
 import CloseIcon from 'material-ui-icons/RemoveCircle';
 import DoneIcon from 'material-ui-icons/CheckCircle';
 
-const TodoStatus = ({todos, filterTodo}) => {
+const TodoStatus = ({filter, todos, filterTodo}) => {
     return (
         <div className="to-do-status">
-            <IconButton color="gray" onClick={() => filterTodo('All')}>
+            <IconButton color={filter === 'All' ? 'accent' : 'gray'} onClick={() => filterTodo('All')}>
                 <Badge badgeContent={todos.length} >
                     <AllIcon />
                 </Badge>
             </IconButton>
-            <IconButton color="primary" onClick={() => filterTodo('Complete')}>
+            <IconButton color={filter === 'Complete' ? 'accent' : 'gray'} onClick={() => filterTodo('Complete')}>
                 <Badge badgeContent={todos.filter(todo => todo.status === 'Complete').length} >
                     <DoneIcon />
                 </Badge>
             </IconButton>
-            <IconButton color="accent" onClick={() => filterTodo('Active')}>
+            <IconButton color={filter === 'Active' ? 'accent' : 'gray'} onClick={() => filterTodo('Active')}>
                 <Badge badgeContent={todos.filter(todo => todo.status === 'Active').length} >
                     <CloseIcon />
                 </Badge>
