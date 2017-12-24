@@ -1,37 +1,23 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import TextField from 'material-ui/TextField';
 
-class TodoInput extends Component {
+class TodoInput extends PureComponent {
 
-    constructor (props) {
-        super(props);
-        this.state = {
-            value: props.editingTodo.name
-        };
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange (e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    componentWillReceiveProps ({editingTodo: todo}) {
-        this.setState({
-            value: todo.name
-        })
+    componentWillReceiveProps ({editingTodo: {name = ''}}) {
+        this.input.value = name;
+        this.input.focus();
     }
 
     render () {
-        const {upsertTodo, editingTodo : {id}} = this.props;
+        console.log('render TodoInput');
+        const {upsertTodo, editingTodo : {id, name}} = this.props;
         return (
             <TextField
                 id="name"
                 label="Name"
                 margin="normal"
-                value={this.state.value}
-                onChange={this.handleChange}
+                defaultValue={name}
+                inputRef={(input) => this.input = input}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                         upsertTodo(id, e.target.value);
