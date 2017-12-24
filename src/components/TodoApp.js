@@ -17,13 +17,6 @@ class TodoApp extends Component {
             editingTodo: {},
             filter: 'All'
         };
-
-        this.addTodo = this.addTodo.bind(this);
-        this.upsertTodo = this.upsertTodo.bind(this);
-        this.toggleTodo = this.toggleTodo.bind(this);
-        this.updateTodo = this.updateTodo.bind(this);
-        this.deleteTodo = this.deleteTodo.bind(this);
-        this.filterTodo = this.filterTodo.bind(this);
     }
 
     render () {
@@ -44,21 +37,21 @@ class TodoApp extends Component {
         );
     }
 
-    addTodo (name) {
+    addTodo = (name) => {
         this.setState({
             todos: [this.createTodo(name), ...this.state.todos]
         });
-    }
+    };
 
-    createTodo (name) {
+    createTodo = (name) => {
         return {
             id: Math.random(),
             name,
             status: 'Active'
         };
-    }
+    };
 
-    toggleTodo (id, checked) {
+    toggleTodo = (id, checked) => {
         const todos = this.state.todos.map(todo => {
             if (todo.id === id) {
                 todo.status = checked ? 'Complete' : 'Active';
@@ -66,15 +59,17 @@ class TodoApp extends Component {
             return todo;
         });
         this.setState({todos});
-    }
+    };
 
-    updateTodo(todo) {
-        this.setState({
-            editingTodo: todo
-        });
-    }
+    updateTodo = (todo) => {
+        if (todo !== this.state.editingTodo) {
+            this.setState({
+                editingTodo: todo
+            });
+        }
+    };
 
-    upsertTodo(id, name) {
+    upsertTodo = (id, name) => {
         if (id) {
             let todos = this.state.todos.map(todo => {
                 if (todo.id === id) {
@@ -91,24 +86,19 @@ class TodoApp extends Component {
         this.setState({
             editingTodo: {}
         });
-    }
+    };
 
-    deleteTodo (id) {
-        let todos = this.state.todos.filter(todo => {
-            if (todo.id !== id) {
-                return todo;
-            }
-        });
+    deleteTodo = (id) => {
         this.setState({
-            todos
+            todos: this.state.todos.filter(todo => todo.id !== id)
         });
-    }
+    };
 
-    filterTodo (filter) {
+    filterTodo = (filter) => {
         this.setState({
             filter
         })
-    }
+    };
 }
 
 export default TodoApp;
